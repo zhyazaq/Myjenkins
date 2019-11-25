@@ -12,9 +12,38 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField  "String","BASE_URL",BASE_URL
     }
+
+    signingConfigs {
+        debug {
+            // No debug config
+            // 签名store文件路径
+            storeFile file("/myapps.jks")
+            // 签名store文件的密码
+            storePassword "myapps"
+            // 别名
+            keyAlias "myapps"
+            // 别名的密码
+            keyPassword "myapps"
+        }
+        // 正式版
+        release {
+            // 签名store文件路径
+            storeFile file("/myapps.jks")
+            // 签名store文件的密码
+            storePassword "myapps"
+            // 别名
+            keyAlias "myapps"
+            // 别名的密码
+            keyPassword "myapps"
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField  "String","BASE_URL",BASE_URL
         }
